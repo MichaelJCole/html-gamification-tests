@@ -11,10 +11,10 @@
 
 import vuePhaser from '../components/vue-phaser'
 
-import game from '../games/crossing'
+import game from '../games/pets'
 
 export default {
-  name: 'crossing-phaser',
+  name: 'virtual-pet',
   components: {
     vuePhaser
   },

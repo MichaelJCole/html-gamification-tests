@@ -20,7 +20,6 @@ export default {
   },
   mounted() {
     // Custom game stuff
-    const { width, height, physics, scene, callbacks } = this.game;
 
     // Configuration specific to Vue integration
     // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Core.html#.GameConfig
@@ -29,16 +28,13 @@ export default {
       scale: {
         parent: 'gameArea',
         mode: Phaser.Scale.FIT,
-        width,
-        height,
+        width: this.game.width,
+        height: this.game.height,
         autoCenter: Phaser.Scale.CENTER_BOTH
-      },
-      physics,
-      scene,
-      callbacks
+      }
     };
 
-    this.phaserInstance = new Phaser.Game(config);
+    this.phaserInstance = new Phaser.Game(Object.assign(config, this.game));
   }
 }
 </script>
@@ -47,6 +43,10 @@ export default {
 body {
   height: 100vh;
   background-color: purple;
+}
+#gameParent {
+  width: 100%;
+  height: 100%;
 }
 #gameArea {
   margin-top: 0px;
