@@ -9,7 +9,7 @@ export default class GameScene extends Phaser.Scene {
   // some parameters for our scene
   init() {
     this.stats = {
-      health: 100,
+      health: 10,
       fun: 100,
     }
     this.scoreDecay = {
