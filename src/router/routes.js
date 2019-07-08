@@ -18,7 +18,10 @@ const routes = [
         component: () => import('pages/VirtualPet.vue') },
       { name: 'Spanish',
         path: 'spanish',
-        component: () => import('pages/Spanish.vue') }
+        component: () => import('pages/Spanish.vue') },
+      { name: 'Monster Kong',
+        path: 'monster-kong',
+        component: () => import('pages/MonsterKong.vue') }
     ]
   }
 ]
