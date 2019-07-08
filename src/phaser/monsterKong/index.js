@@ -7,7 +7,7 @@ export default {
   height: 640,
   title: 'Virtual Pet',
   pixelArt: false,
-  backgroundColor: 'ffffff',
+  backgroundColor: '000000',
   scene: [new Load(), new Game()],
   physics: { default: 'arcade',
     arcade: {
