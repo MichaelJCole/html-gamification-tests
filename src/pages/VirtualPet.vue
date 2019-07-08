@@ -11,7 +11,7 @@
 
 import vuePhaser from '../components/vue-phaser'
 
-import game from '../games/pets'
+import game from '../phaser/pets'
 
 export default {
   name: 'virtual-pet',

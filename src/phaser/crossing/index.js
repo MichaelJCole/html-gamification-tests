@@ -6,12 +6,6 @@ class GameScene extends Phaser.Scene {
   }
 
   preload () {
-    /* ISSUE_HERE - phaser would like to load images over XHR */
-    console.log(require('./images/player.png'))
-    console.log(require('./images/dragon.png'))
-    console.log(require('./images/treasure.png'))
-    console.log(require('./images/background.png'))
-    
     this.load.image('player', require('./images/player.png'))
     this.load.image('dragon', require('./images/dragon.png'))
     this.load.image('treasure', require('./images/treasure.png'))

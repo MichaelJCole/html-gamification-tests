@@ -90,18 +90,18 @@ module.exports = function (ctx) {
         cfg.module.rules.forEach(rule => {
           try {
             if (rule.use[0].loader === 'url-loader') {
-              rule.exclude = /src\/games/
+              rule.exclude = /src\/phaser/
             }
           } catch (e) {}
         })
         // Add rules for phaser assets
         cfg.module.rules.push({
-          include: /src\/games/,
+          include: /src\/phaser/,
           test: [/\.vert$/i, /\.frag$/i],
           use: 'raw-loader'
         },
         {
-          include: /src\/games/,
+          include: /src\/phaser/,
           test: /\.(gif|png|jpe?g|svg|xml|mp3|svg|woff|woff2)$/i,
           use: 'file-loader'
         }

@@ -11,7 +11,7 @@
 
 import vuePhaser from '../components/vue-phaser'
 
-import game from '../games/crossing'
+import game from '../phaser/crossing'
 
 export default {
   name: 'PageIndex',
