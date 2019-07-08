@@ -66,6 +66,8 @@ module.exports = function (ctx) {
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
+
+        // eslint errors in browser and etc.
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -75,10 +77,35 @@ module.exports = function (ctx) {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
         })
+
+        // pug as a file
         cfg.module.rules.push({
           test: /\.pug$/,
           loader: 'pug-plain-loader'
         })
+
+        // phaser wants files as URL's for XHR requests.  refuses to load data urls
+        
+        // exclude phaser assets from existing rules
+        cfg.module.rules.forEach(rule => {
+          try {
+            if (rule.use[0].loader === 'url-loader') {
+              rule.exclude = /src\/games/
+            }
+          } catch (e) {}
+        })
+        // Add rules for phaser assets
+        cfg.module.rules.push({
+          include: /src\/games/,
+          test: [/\.vert$/i, /\.frag$/i],
+          use: 'raw-loader'
+        },
+        {
+          include: /src\/games/,
+          test: /\.(gif|png|jpe?g|svg|xml|mp3|svg|woff|woff2)$/i,
+          use: 'file-loader'
+        }
+        )
       }
     },
 

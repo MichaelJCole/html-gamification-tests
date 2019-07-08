@@ -15,7 +15,10 @@ const routes = [
         component: () => import('pages/CrossingPhaser.vue') },
       { name: 'Virtual Pet',
         path: 'virtual-pet',
-        component: () => import('pages/VirtualPet.vue') }
+        component: () => import('pages/VirtualPet.vue') },
+      { name: 'Spanish',
+        path: 'spanish',
+        component: () => import('pages/Spanish.vue') }
     ]
   }
 ]

@@ -6,21 +6,16 @@ class GameScene extends Phaser.Scene {
   }
 
   preload () {
-    const assets = {
-      // Files in this directory will be packed with webpack.
-      player: require('./player.png'),
-      dragon: require('./dragon.png'),
-      treasure: require('./treasure.png'),
-      background: require('./background.png')
-    }
-
-    Object.keys(assets).forEach(name => {
-      if (assets[name].indexOf('data:') === 0) {
-        if (!this.textures.list[name]) this.textures.addBase64(name, assets[name]) // add string directly to texture cache if webpack changed to data uri
-      } else {
-        this.load.image(name, assets[name]) // elsewise, add through XHR
-      }
-    })
+    /* ISSUE_HERE - phaser would like to load images over XHR */
+    console.log(require('./images/player.png'))
+    console.log(require('./images/dragon.png'))
+    console.log(require('./images/treasure.png'))
+    console.log(require('./images/background.png'))
+    
+    this.load.image('player', require('./images/player.png'))
+    this.load.image('dragon', require('./images/dragon.png'))
+    this.load.image('treasure', require('./images/treasure.png'))
+    this.load.image('background', require('./images/background.png'))
   }
 
   create () {
@@ -84,10 +79,5 @@ class GameScene extends Phaser.Scene {
 export default {
   width: 640,
   height: 360,
-  physics: {},
-  scene: [new GameScene()],
-  callbacks: {
-    preBoot: () => { console.log('preBoot callback') },
-    postBoot: () => { console.log('postBoot callback') }
-  }
+  scene: new GameScene(),
 }

@@ -9,7 +9,7 @@ export default class LoadingScene extends Phaser.Scene {
   // Preload the logo for the loading screen
 
   preload () {
-    this.load.spritesheet('pet', require('./images/pet.png'), { frameWidth: 97, frameHeight: 83, margin: 1, spacing: 1 })
+    this.load.spritesheet('pet', require('./images/house.png'), { frameWidth: 97, frameHeight: 83, margin: 1, spacing: 1 })
   }
 
   // Show the loading screen and load assets
@@ -17,31 +17,17 @@ export default class LoadingScene extends Phaser.Scene {
   create () {
     const c = this.sys.game.config
 
-    // Create animations
-    this.anims.create({
-      key: 'funnyfaces',
-      frames: this.anims.generateFrameNames('pet', { frames: [0,1,2,3] }),
-      frameRate: 7,
-      yoyo: true,
-      repeat: 0
-    })
-    
     // Show loading screen
     this.textBackground = this.add.graphics() 
     this.textBackground.fillStyle('purple', 0.5)
     this.textBackground.fillRect(35, 180, 295, 75)
 
-    this.text = this.add.text(c.width/2, c.height/2-100, '😊 Virtual Pet!', {
+    this.text = this.add.text(c.width/2, c.height/2-100, '😊 Spanish Game!', {
       font: '40px Arial',
       fill: 'white'
     })
     this.text.setOrigin(0.5)
 
-    this.pet = this.add.sprite(180, 360, 'pet', 0).setInteractive()
-    this.pet.play('funnyfaces')
-    this.pet.on('animationcomplete', function() {
-      this.pet.play('funnyfaces')
-    }, this)
     this.progressBar = this.add.graphics()
     this.progressBar.fillStyle(0x992299, 1)
 
@@ -49,11 +35,11 @@ export default class LoadingScene extends Phaser.Scene {
 
     const images = {
       // Files in this directory will be packed with webpack.
-      backyard: require('./images/backyard.png'),
-      apple: require('./images/apple.png'),
-      candy: require('./images/candy.png'),
-      rotate: require('./images/rotate.png'),
-      toy: require('./images/rubber_duck.png')
+      background: require('./images/background-city.png'),
+      building: require('./images/building.png'),
+      car: require('./images/car.png'),
+      house: require('./images/house.png'),
+      tree: require('./images/tree.png')
     }
 
     Object.keys(images).forEach(name => {
@@ -66,11 +52,23 @@ export default class LoadingScene extends Phaser.Scene {
       }
     })
 
+    console.log(require('./audio/wrong.mp3'))
+    console.log(require('./audio/arbol.mp3'))
+    
+
+    this.load.audio('wrong', require('./audio/wrong.mp3'))
+    this.load.audio('tree', require('./audio/arbol.mp3'))
+    this.load.audio('car', require('./audio/auto.mp3'))
+    this.load.audio('house', require('./audio/casa.mp3'))
+    this.load.audio('building', require('./audio/edificio.mp3'))
+    this.load.audio('correct', require('./audio/correct.mp3'))
+    
     this.load.on('progress', function(value) {
       this.progressBar.clear();
       this.progressBar.fillRect(170, 385, 20, (1-value) * 140)
     }, this)
     this.load.on('complete', function(value) {
+      this.scene.stop()
       this.scene.start('Home')
     }, this)
     this.load.start()
