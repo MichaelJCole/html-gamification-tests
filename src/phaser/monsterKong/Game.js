@@ -181,8 +181,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   gameOver(source, target) {
-    return console.log('game over')
-
     this.cameras.main.fade(500)
     this.cameras.main.on('camerafadeoutcomplete', () => {
       this.scene.restart()
