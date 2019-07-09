@@ -1,5 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const webpack = require('webpack')
 
 module.exports = function (ctx) {
   return {
@@ -106,6 +107,10 @@ module.exports = function (ctx) {
           use: 'file-loader'
         }
         )
+        cfg.plugins.push(new webpack.DefinePlugin({
+          CANVAS_RENDERER: JSON.stringify(true),
+          WEBGL_RENDERER: JSON.stringify(true)
+        }))
       }
     },
 

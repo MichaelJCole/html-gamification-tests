@@ -13,7 +13,8 @@
   "dependencies": {
     "@babel/runtime": "^7.5.1",
     "@quasar/extras": "^1.0.0",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "webpack": "^4.35.3"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",

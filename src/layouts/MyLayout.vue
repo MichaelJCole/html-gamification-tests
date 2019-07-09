@@ -20,7 +20,7 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>{{ route.name}}</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
+            <q-item-label caption>{{ route.instructions}}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

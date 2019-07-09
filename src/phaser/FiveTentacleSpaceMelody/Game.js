@@ -19,9 +19,6 @@ export default class GameScene extends Phaser.Scene {
     // Load Level
     this.level = this.loadLevel('level01')
 
-    // Controls
-    this.cursors = this.input.keyboard.createCursorKeys();
-
     // Placement helper
     this.input.on('pointerdown', (pointer) => {
       console.log('click', pointer.x, pointer.y)
@@ -29,45 +26,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    let l = this.level
-
-    let onGround = this.player.body.blocked.down || this.player.body.touching.down
-    
-    // Left
-    if (this.cursors.left.isDown) {
-      this.player.body.setVelocityX(-l.player.runSpeed)
-      this.player.flipX = false
-      if (!this.player.anims.isPlaying && onGround)
-        this.player.anims.play('walking')
-    }
-    
-    // Right
-    else if (this.cursors.right.isDown) {
-      this.player.body.setVelocityX(l.player.runSpeed)
-      this.player.flipX = true
-      if (!this.player.anims.isPlaying && onGround)
-        this.player.anims.play('walking')
-    }
-
-    // Stopped
-    else {
-      this.player.body.setVelocityX(0)
-      this.player.anims.stop('walking')
-      if (onGround) this.player.setFrame(3)
-    }
-
-    // Jump
-    if (onGround && (this.cursors.space.isDown || this.cursors.up.isDown)) {
-      this.player.body.setVelocityY(l.player.jumpSpeed)
-      this.player.anims.stop('walking')
-      this.player.setFrame(2)
-    }
   }
 
   loadLevel(key) {
     // Get level data from json cache
     const level = this.cache.json.get(key)
-
+    return
     // Setup the world
     this.physics.world.setBounds(0, 0, level.worldW, level.worldH)
 
@@ -80,7 +44,7 @@ export default class GameScene extends Phaser.Scene {
       } else {
         let w = this.textures.get(p.key).get(0).width
         let h = this.textures.get(p.key).get(0).height
-        obj = this.add.tileSprite(p.x, p.y, p.xTiles*w, h, p.key).setOrigin(0)
+        obj = this.add.tileSprite(p.x, p.y, p.xTiles*w, p.yTiles*h, p.key).setOrigin(0)
       }
       this.physics.add.existing(obj, true)
       this.boundaries.add(obj) 

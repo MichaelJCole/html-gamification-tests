@@ -18,20 +18,11 @@ export default class LoadingScene extends Phaser.Scene {
     const c = this.sys.game.config
 
     // Show loading screen
-    this.textBackground = this.add.graphics() 
-    this.textBackground.fillStyle('purple', 0.5)
-    this.textBackground.fillRect(35, 180, 295, 75)
-
     this.text = this.add.text(c.width/2, c.height/2-100, '😊 Monster Kong!', {
       font: '40px Arial',
       fill: 'white'
     })
     this.text.setOrigin(0.5)
-
-    this.pet = this.add.sprite(180, 360, 'goal', 0).setInteractive()
-
-    this.progressBar = this.add.graphics()
-    this.progressBar.fillStyle(0x992299, 1)
 
     // Load assets
 
@@ -43,9 +34,9 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.on('progress', function(value) {
       this.progressBar.clear();
       this.progressBar.fillStyle(0xaaaaaa, 1)
-      this.progressBar.fillRect(170, 185, 300, 70)
+      this.progressBar.fillRect(c.width/2-150, c.height/2, 300, 70)
       this.progressBar.fillStyle(0x992299, 1)
-      this.progressBar.fillRect(175, 190, value * 280, 60)
+      this.progressBar.fillRect(c.width/2-150+3, c.height/2+3, value * 294, 64)
     }, this)
     this.load.on('complete', function(value) {
       this.scene.start('Game')

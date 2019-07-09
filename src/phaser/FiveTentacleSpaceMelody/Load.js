@@ -1,15 +1,26 @@
 // create a new scene
 import Phaser from 'phaser'
+import AwesomeButton from '../lib/AwesomeButton'
 
 export default class LoadingScene extends Phaser.Scene {
   constructor () {
     super('Loading')
   }
 
+  init() {
+    this.googleFonts = { families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ] },
+    this.fontsReady = false
+    this.assetsReady = false
+    this.buttonReady = false
+  }
+
   // Preload the logo for the loading screen
 
   preload () {
-    this.load.image('goal', require('./images/gorilla.png'));
+    // Something to show
+    this.load.image('background-splash', require('./images/background-splash.jpg'));
+    // Need this to load fonts
+    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
   }
 
   // Show the loading screen and load assets
@@ -17,63 +28,98 @@ export default class LoadingScene extends Phaser.Scene {
   create () {
     const c = this.sys.game.config
 
-    // Show loading screen
-    this.textBackground = this.add.graphics() 
-    this.textBackground.fillStyle('purple', 0.5)
-    this.textBackground.fillRect(35, 180, 295, 75)
+    // Space is great isn't it
+    this.background = this.add.sprite(0,0,'background-splash').setOrigin(0).setScale(1.5)
 
-    this.text = this.add.text(c.width/2, c.height/2-100, '😊 Monster Kong!', {
+    // Show loading screen text
+    this.text = this.add.text(c.width/2, c.height/2-100, '5💪🌌🎼 (5-Tentacle Space Melody)', {
       font: '40px Arial',
       fill: 'white'
     })
     this.text.setOrigin(0.5)
 
-    this.pet = this.add.sprite(180, 360, 'goal', 0).setInteractive()
-
-    this.progressBar = this.add.graphics()
-    this.progressBar.fillStyle(0x992299, 1)
-
     // Load assets
 
     this.loadStuff()
+    const self = this
+    WebFont.load({
+      google: this.googleFonts,
+      active: function () {
+        self.fontsReady = true
+      }
+    });
 
     // Show progress!
 
     this.progressBar = this.add.graphics()
     this.load.on('progress', function(value) {
       this.progressBar.clear();
-      this.progressBar.fillStyle(0xaaaaaa, 1)
-      this.progressBar.fillRect(170, 185, 300, 70)
+      this.progressBar.fillStyle(0xaaaaff, 1)
+      this.progressBar.fillRect(c.width/2-150, c.height/2, 300, 70)
       this.progressBar.fillStyle(0x992299, 1)
-      this.progressBar.fillRect(175, 190, value * 280, 60)
+      this.progressBar.fillRect(c.width/2-150+3, c.height/2+3, value * 294, 64)
+      const pct = Math.ceil(value * 100)
+      this.progressText.setText(`Loading ... ${pct}%`)
     }, this)
     this.load.on('complete', function(value) {
-      this.scene.start('Game')
+      this.assetsReady = true
     }, this)
+
+    this.progressText = this.add.text(c.width/2, c.height/2+35, 'Loading ...', {
+      font: '20px Arial',
+      fill: 'white'
+    })
+    this.progressText.setOrigin(0.5)
+
     this.load.start()
   }
 
+  update() {
+    const c = this.sys.game.config
+    if (this.fontsReady && this.assetsReady && !this.buttonReady) {
+      this.progressBar.visible = false
+      this.progressText.visible = false
+      this.startButton = this.add.existing(
+        new AwesomeButton(this, c.width/2, c.height/2+35, 300, 100,
+          {
+            spriteKey: 'btn',  // => btn_[rest|hover|active|disabled].png
+
+            text: 'Start!',
+            originY: 0.6,
+            sounds: {
+              active: 'beep'
+            },
+            default: {
+              font: '60px Freckle Face',
+              color: 'white',
+            },
+            active: {
+              color: 'yellow'
+            }
+          },
+          () => {
+            this.scene.start('Game', 'level01')
+          }
+        )
+      )
+      this.buttonReady = true
+    }
+  }
+
   loadStuff() {
-    // load images
-    this.load.image('ground', require('./images/ground.png'));
-    this.load.image('platform', require('./images/platform.png'));
-    this.load.image('block', require('./images/block.png'));
-    this.load.image('goal', require('./images/gorilla.png'));
-    this.load.image('barrel', require('./images/barrel.png'));
+    // Single images
 
-    // load spritesheets
-    this.load.spritesheet('player', require('./images/player_spritesheet.png'), {
-      frameWidth: 28,
-      frameHeight: 30,
-      margin: 1,
-      spacing: 1
-    });
+    this.load.image('background', require('./images/background.jpg'));
 
-    this.load.spritesheet('fire', require('./images/fire_spritesheet.png'), {
-      frameWidth: 20,
-      frameHeight: 21,
-      margin: 1,
-      spacing: 1
-    });
+    // Sounds
+
+    this.load.audio('beep', require('./audio/beep.mp3'))
+
+    // Sprites 
+
+    // Webpack sprites.png to [hash]/sprites.png
+    const spriteFile = require('!!file-loader?name=[hash]/[name].[ext]!./sprites.png')
+    // Use [hash] as last param to multiatlas loader
+    this.load.multiatlas('multiatlas', require('./sprites.json'), spriteFile.split('/').shift());
   }
 }
