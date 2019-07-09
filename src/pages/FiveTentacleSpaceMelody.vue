@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <vue-phaser class="col" :game="game"></vue-phaser>
+    <vue-phaser :game="game"></vue-phaser>
   </q-page>
 </template>
 
@@ -11,10 +11,10 @@
 
 import vuePhaser from '../components/vue-phaser'
 
-import game from '../phaser/MonsterKong'
+import game from '../phaser/FiveTentacleSpaceMelody'
 
 export default {
-  name: 'MonsterKong',
+  name: 'FiveTentacleSpaceMelody',
   components: {
     vuePhaser
   },

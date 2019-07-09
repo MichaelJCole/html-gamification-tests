@@ -11,10 +11,10 @@
 
 import vuePhaser from '../components/vue-phaser'
 
-import game from '../phaser/spanish'
+import game from '../phaser/Spanish'
 
 export default {
-  name: 'spanish',
+  name: 'Spanish',
   components: {
     vuePhaser
   },

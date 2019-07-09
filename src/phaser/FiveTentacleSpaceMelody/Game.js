@@ -6,15 +6,13 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  // some parameters for our scene
-  init() {
-    this.runSpeed = 100
-    this.jumpSpeed = -600
+  init(data) {
+    this.levelStr = data.levelStr || 'level01'
   }
 
   preload() {
     // Level 01
-    this.load.json('level01', require('./json/level01.json'))
+    this.load.json(this.levelStr, require(`./json/${this.levelStr}.json`))
   }
 
   create () {

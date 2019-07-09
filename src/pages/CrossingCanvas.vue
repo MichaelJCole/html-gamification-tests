@@ -2,6 +2,7 @@
 div.stuff
   //- This is a HTML5 Canvas game that doesn't use Phaser or Vue
   canvas#myCanvas(width="1000" height="500")
+  p on this game, use left and right arrows.
 
 </template>
 
@@ -113,7 +114,7 @@ export default {
     function endGame(msg) {
       alert(msg);
       gameOver = true;
-      window.location = "crossing-game";
+      window.location = "crossing-canvas";
     }
 
     function checkCollision(r1, r2) {

@@ -1,27 +1,6 @@
 <template>
-  <q-page class="flex flex-center">
-    <vue-phaser :game="game"></vue-phaser>
+  <q-page>
+    <h2>Choose a game on the right.</h2>
+    <p>You may need to reload your browser to restart a game</p>
   </q-page>
 </template>
-
-<style>
-</style>
-
-<script>
-
-import vuePhaser from '../components/vue-phaser'
-
-import game from '../phaser/crossing'
-
-export default {
-  name: 'PageIndex',
-  components: {
-    vuePhaser
-  },
-  computed: {
-    game() {
-      return game
-    }
-  }
-}
-</script>

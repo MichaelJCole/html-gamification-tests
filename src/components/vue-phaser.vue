@@ -42,11 +42,12 @@ export default {
 <style>
 body {
   height: 100vh;
+  width: 100vw;
   background-color: purple;
 }
 #gameParent {
   width: 100%;
-  height: 100%;
+  height: 90vh;
 }
 #gameArea {
   margin-top: 0px;

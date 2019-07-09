@@ -21,7 +21,13 @@ const routes = [
         component: () => import('pages/Spanish.vue') },
       { name: 'Monster Kong',
         path: 'monster-kong',
-        component: () => import('pages/MonsterKong.vue') }
+        component: () => import('pages/MonsterKong.vue') },
+      { name: 'Tower Defense',
+        path: 'tower-defense',
+        component: () => import('pages/TowerDefense.vue') },
+      { name: '5-Tentacle Space Melody',
+        path: '5-tentacle-space-melody',
+        component: () => import('pages/FiveTentacleSpaceMelody.vue') }
     ]
   }
 ]
