@@ -199,9 +199,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_0.png</key>
-            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_1.png</key>
-            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_2.png</key>
+            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_active.png</key>
+            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_disabled.png</key>
+            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_hover.png</key>
+            <key type="filename">../../../../../../CAPNow/test-phaser/src/phaser/FiveTentacleSpaceMelody/sprites/btn/btn_rest.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

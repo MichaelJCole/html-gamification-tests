@@ -12,6 +12,7 @@ export default class LoadingScene extends Phaser.Scene {
     this.fontsReady = false
     this.assetsReady = false
     this.buttonReady = false
+    this.startWhenReady = true
   }
 
   // Preload the logo for the loading screen
@@ -77,6 +78,9 @@ export default class LoadingScene extends Phaser.Scene {
   update() {
     const c = this.sys.game.config
     if (this.fontsReady && this.assetsReady && !this.buttonReady) {
+      
+      if (this.startWhenReady) return this.scene.start('Game', 'level01')
+
       this.progressBar.visible = false
       this.progressText.visible = false
       this.startButton = this.add.existing(
@@ -115,7 +119,7 @@ export default class LoadingScene extends Phaser.Scene {
 
     this.load.audio('beep', require('./audio/beep.mp3'))
 
-    // Sprites 
+    // Sprites - ./sprites.png and ./sprites.json
 
     // Webpack sprites.png to [hash]/sprites.png
     const spriteFile = require('!!file-loader?name=[hash]/[name].[ext]!./sprites.png')

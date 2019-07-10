@@ -6,7 +6,7 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  preload() {
+  preload () {
     // Level 01
     this.load.json('level01', require('./json/level01.json'))
   }
@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene {
     this.level = this.loadLevel('level01')
 
     // Controls
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input.keyboard.createCursorKeys()
 
     // Placement helper
     this.input.on('pointerdown', (pointer) => {
@@ -24,25 +24,25 @@ export default class GameScene extends Phaser.Scene {
     })
   }
 
-  update() {
+  update () {
     let l = this.level
 
     let onGround = this.player.body.blocked.down || this.player.body.touching.down
-    
+
     // Left
     if (this.cursors.left.isDown) {
       this.player.body.setVelocityX(-l.player.runSpeed)
       this.player.flipX = false
       if (!this.player.anims.isPlaying && onGround)
-        this.player.anims.play('walking')
+        {this.player.anims.play('walking')}
     }
-    
+
     // Right
     else if (this.cursors.right.isDown) {
       this.player.body.setVelocityX(l.player.runSpeed)
       this.player.flipX = true
       if (!this.player.anims.isPlaying && onGround)
-        this.player.anims.play('walking')
+        {this.player.anims.play('walking')}
     }
 
     // Stopped
@@ -60,7 +60,7 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  loadLevel(key) {
+  loadLevel (key) {
     // Get level data from json cache
     const level = this.cache.json.get(key)
 
@@ -76,10 +76,10 @@ export default class GameScene extends Phaser.Scene {
       } else {
         let w = this.textures.get(p.key).get(0).width
         let h = this.textures.get(p.key).get(0).height
-        obj = this.add.tileSprite(p.x, p.y, p.xTiles*w, h, p.key).setOrigin(0)
+        obj = this.add.tileSprite(p.x, p.y, p.xTiles * w, h, p.key).setOrigin(0)
       }
       this.physics.add.existing(obj, true)
-      this.boundaries.add(obj) 
+      this.boundaries.add(obj)
     })
 
     // Fires
@@ -89,7 +89,7 @@ export default class GameScene extends Phaser.Scene {
     })
     this.anims.create({
       key: 'burning',
-      frames: this.anims.generateFrameNames('fire', {frames: [0,1]}),
+      frames: this.anims.generateFrameNames('fire', { frames: [0, 1] }),
       frameRate: 4,
       repeat: -1
     })
@@ -100,7 +100,7 @@ export default class GameScene extends Phaser.Scene {
       this.input.setDraggable(obj.setInteractive())
       this.fires.add(obj)
     })
-    this.input.on('drag', function(pointer, obj, x, y) {
+    this.input.on('drag', function (pointer, obj, x, y) {
       obj.x = x
       obj.y = y
       console.log(x, y)
@@ -113,7 +113,7 @@ export default class GameScene extends Phaser.Scene {
       angle: 14,
       duration: 900,
       yoyo: true,
-      repeat: -1,
+      repeat: -1
     })
     this.goal.tween.play()
 
@@ -122,13 +122,13 @@ export default class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'walking',
       frames: this.anims.generateFrameNames('player', {
-        frames: [0,1,2]
+        frames: [0, 1, 2]
       }),
       yoyo: true,
       frameRate: 12,
       repeat: -1
     })
-    
+
     // Spawner
     this.barrels = this.physics.add.group({
       bounceY: 0.1,
@@ -140,7 +140,7 @@ export default class GameScene extends Phaser.Scene {
       delay: level.spawner.interval,
       loop: true,
       callbackScope: this,
-      callback() {
+      callback () {
         // create barrel
         let b = this.barrels.get(level.goal.x, level.goal.y, 'barrel')
         b.setActive(true)
@@ -152,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
           delay: level.spawner.lifespan,
           repeat: 0,
           callbackScope: this,
-          callback() {
+          callback () {
             this.barrels.killAndHide(b)
             b.body.enable = false
           }
@@ -167,21 +167,21 @@ export default class GameScene extends Phaser.Scene {
     this.player.body.setCollideWorldBounds(true)
 
     // Camera
-    this.cameras.main.setBounds(0,0,level.worldW, level.worldH)
-    this.cameras.main.setDeadzone(100, 100);
+    this.cameras.main.setBounds(0, 0, level.worldW, level.worldH)
+    this.cameras.main.setDeadzone(100, 100)
     this.cameras.main.startFollow(this.player)
 
     return level
   }
 
-  gameOver(source, target) {
+  gameOver (source, target) {
     this.cameras.main.fade(500)
     this.cameras.main.on('camerafadeoutcomplete', () => {
       this.scene.restart()
     })
   }
 
-  nextLevel(...args) {
+  nextLevel (...args) {
     this.gameOver.apply(null, args)
   }
 }
