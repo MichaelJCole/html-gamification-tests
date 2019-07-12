@@ -1,8 +1,8 @@
 // create a new scene
 import Phaser from 'phaser'
 
-var cloth
-var blitter
+const monopoles = []
+const spawners = []
 
 export default class GameScene extends Phaser.Scene {
   constructor () {
@@ -23,27 +23,35 @@ export default class GameScene extends Phaser.Scene {
 
     // Load Level
     this.level = this.loadLevel(this.levelStr)
-    // this.add.image(0, 0, 'background').setOrigin(0, 0);
-
-    blitter = this.add.blitter(0, 0, 'multiatlas');
 
     this.matter.world.setBounds();
     this.matter.add.mouseSpring();
 
-    var group = this.matter.world.nextGroup(true);
-
-    // setting Matter world bounds
-    this.matter.world.setBounds(0, -200, c.width, c.height + 200);
-
     // waiting for user input
     this.input.on("pointerdown", function(pointer) {
-        var bodiesUnderPointer = Phaser.Physics.Matter.Matter.Query.point(this.matter.world.localWorld.bodies, pointer);
-        if(bodiesUnderPointer.length == 0){
-          this.matter.add.sprite(pointer.x, pointer.y, "crate");
-        } else {
-          bodiesUnderPointer[0].gameObject.visible = false;
-          this.matter.world.remove(bodiesUnderPointer[0])
-        }
+
+      // Look for stuff under the pointer
+      var bodiesUnderPointer = Phaser.Physics.Matter.Matter.Query.point(this.matter.world.localWorld.bodies, pointer);
+
+      // stuff?  tell me more
+      if(bodiesUnderPointer.length) {
+        console.log(bodiesUnderPointer)
+      }
+
+      // no stuff?  make stuff
+      else {
+        // Create the spawner
+        let spawner = this.matter.add.sprite(pointer.x, pointer.y, 'apple', 0, 
+          { friction: 0, 
+            frictionStatic: 0, 
+            frictionAir: 0, 
+            density: 0.001, 
+            restitution: 1 }
+        )
+        // Add to stuff web
+        monopoles.push(spawner)
+        spawners.push(spawner)
+      }
     }, this);
 
     // Placement helper
@@ -52,14 +60,37 @@ export default class GameScene extends Phaser.Scene {
     })
   }
 
+  update() {
+    /*
+
+
+    */
+
+    // For each spawner
+    const self = this
+    this.monopoles.forEach(sp1 => {
+      // For ALL other spawners
+      self.monopoles.forEach(sp2 => {
+        if (sp1 === sp2) return 
+        // For all OTHER spawners
+
+      })
+    })
+  }
+
+
+  /* Don't be sad, have a fart joke! */
+
   loadLevel(key) {
     // Get level data from json cache
     const level = this.cache.json.get(key)
 
     this.matter.world.setBounds(0, 0, level.worldW, level.worldH);
 
-    level.walls.forEach(wall => {
-      this.matter.add.rectangle(wall.x, wall.y, wall.w, wall.h, { isStatic: true })
+    level.obstacles.forEach(obsta => {
+      this.matter.add.rectangle(obsta.x, obsta.y, obsta.w, obsta.h, 
+        { isStatic: true }
+      )
     }, this)
 
     level.spawners.forEach(spawner => {
@@ -72,24 +103,4 @@ export default class GameScene extends Phaser.Scene {
     return level
   }
 
-
-  update () {
-    // for (var i = 0; i < cloth.bodies.length; i++) {
-    //   var body = cloth.bodies[i];
-
-    //   body.gameObject.x = body.position.x;
-    //   body.gameObject.y = body.position.y;
-    // }
-  }
-
-  gameOver(source, target) {
-    this.cameras.main.fade(500)
-    this.cameras.main.on('camerafadeoutcomplete', () => {
-      this.scene.restart()
-    })
-  }
-
-  nextLevel(...args) {
-    this.gameOver.apply(null, args)
-  }
 }

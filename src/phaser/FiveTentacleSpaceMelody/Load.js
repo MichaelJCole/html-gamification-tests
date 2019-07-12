@@ -114,6 +114,7 @@ export default class LoadingScene extends Phaser.Scene {
     // Single images
 
     this.load.image('background', require('./images/background.jpg'));
+    this.load.image('apple', require('./images/apple.png'));
 
     // Sounds
 

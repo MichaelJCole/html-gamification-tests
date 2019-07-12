@@ -1,38 +1,54 @@
 {
    "worldW": 1024,
    "worldH": 768,
-   "walls": [
+   "obstacles": [],
+   "G": 100, // Gravity / Gravitational Constant
+   "E": 100, // Magnivity / Magnivinal constant Constant
+   "D": 100, // Darklivity / Darklivinal Constant
+   // MonoPoleS
+   "mps": [
+      // Monopole 0 is the total force applied to the system (by all bodies)
+      // the inverse of this total force must be applied back to each body
+      // Or the whole system of monopoles will move to exit the play/simulation area
       {
          "x": 0,
          "y": 0,
-         "h": 768,
-         "w": 2
+         "mass": 0.0001, // very very small - so small it doesn't affect anything
+         "fG": 1, // Normal gravity applies
+         "fE": 1, // Normal magnivitism applies
+         "fD": 1, // Normal darklivism applies
       },
       {
-         "x": 0,
-         "y": 0,
-         "h": 2,
-         "w": 1024
+         "x": 10,
+         "y": 10,
+         "mass": 1,
+         "fG": 1,
+         "fE": 1,
+         "fF": 1
       },
       {
-         "x": 0,
-         "y": 768,
-         "h": 0,
-         "w": 1024
+         "x": 100,
+         "y": 100,
+         "mass": 1,
+         "fG": 1,
+         "fE": 1,
+         "fF": 1
       },
       {
-         "x": 1024,
-         "y": 0,
-         "h": 768,
-         "w": 0
+         "x": -10,
+         "y": -10,
+         "mass": 1,
+         "fG": 1,
+         "fE": 1,
+         "fF": 1
+      },
+      {
+         "x": -100,
+         "y": -100,
+         "mass": 1,
+         "fG": 1,
+         "fE": 1,
+         "fF": 1
       }
-   ],
-   "spawners": [
-      {
-         "speed": 60,
-         "x": 200,
-         "y": 200
-      }
-   ],
-   "boundaries": []
+   ]
 }
