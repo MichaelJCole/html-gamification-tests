@@ -14,6 +14,7 @@
     "@babel/runtime": "^7.5.1",
     "@quasar/extras": "^1.0.0",
     "matter-js": "^0.14.2",
+    "phaser": "^3.19.0",
     "quasar": "^1.0.0",
     "webpack": "^4.35.3"
   },
@@ -25,8 +26,7 @@
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
     "pug": "^2.0.4",
-    "pug-plain-loader": "^1.0.0",
-    "quasar-app-extension-phaser": "/home/michael/scm/CAPNow/quasar-app-extension-phaser"
+    "pug-plain-loader": "^1.0.0"
   },
   "engines": {
     "node": ">= 8.9.0",

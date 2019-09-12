@@ -1,5 +1,6 @@
 <template>
   <div id="gameParent">
+    <p style="text-align: right;">Note: if the game doesn't "reload" after clicking awaywhen you click back, refresh the page.  Art is abandoned.</p>
     <div id="gameArea"></div>
   </div>
 </template>
@@ -13,12 +14,12 @@ export default {
   },
   components: {
   },
-  data() {
+  data () {
     return {
       phaserInstance: false
     }
   },
-  mounted() {
+  mounted () {
     // Custom game stuff
 
     // Configuration specific to Vue integration
@@ -32,22 +33,26 @@ export default {
         height: this.game.height,
         autoCenter: Phaser.Scale.CENTER_BOTH
       }
-    };
+    }
 
-    this.phaserInstance = new Phaser.Game(Object.assign(config, this.game));
+    if (!this.phaserInstance) this.phaserInstance = new Phaser.Game(Object.assign(config, this.game))
+  },
+
+  destroyed () {
+    // This doesn't work.
+    if (this.phaserInstance) {
+      console.log('bye bye!')
+      this.phaserInstance.destroy(true)
+      delete this.phaserInstance
+    }
   }
 }
 </script>
 
 <style>
-body {
-  height: 100vh;
-  width: 100vw;
-  background-color: purple;
-}
 #gameParent {
   width: 100%;
-  height: 90vh;
+  height: 80vh;
 }
 #gameArea {
   margin-top: 0px;

@@ -1,1 +1,0 @@
-../quasar-app-extension-phaser/iterate.sh

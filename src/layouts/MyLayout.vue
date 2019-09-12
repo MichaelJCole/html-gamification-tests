@@ -48,8 +48,7 @@ export default {
     openURL
   },
   computed: {
-    routes() { return routes[0].children }
+    routes () { return routes[0].children }
   }
 }
 </script>
-

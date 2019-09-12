@@ -19,7 +19,7 @@ export default {
     vuePhaser
   },
   computed: {
-    game() {
+    game () {
       return game
     }
   }
