@@ -6,7 +6,7 @@
           <q-icon name="menu" />
         </q-btn>
 
-        <q-toolbar-title>Quasar App</q-toolbar-title>
+        <q-toolbar-title>HTML5 Gamification Tests</q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>

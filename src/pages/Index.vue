@@ -1,6 +1,19 @@
 <template>
   <q-page>
-    <h2>Choose a game on the right.</h2>
-    <p>You may need to reload your browser to restart a game</p>
+    <q-markdown class="q-ma-xl" :src="readme" />
   </q-page>
 </template>
+
+<script>
+import readme from '../../README.md'
+
+export default {
+  name: 'Readme',
+  data() {
+    return {
+      readme
+    }
+  }
+}
+</script>
+

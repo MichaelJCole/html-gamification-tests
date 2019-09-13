@@ -1,6 +1,13 @@
 <template lang="pug">
+  .stuff
     GameBoard(:theme="theme")
- 
+    p.words 
+      | This was a fun experience converting a 
+      a(href="https://codepen.io/jackrugile/pen/zqJdXM") codepen
+      br 
+      | to a Vue component and learning 
+      br
+      | to use requestAnimationFrame() for JavaScript driven animation. 
 </template>
 
 <script>
@@ -22,4 +29,20 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.stuff {
+  position: relative;
+}
+.words {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 26px;
+
+  a {
+    color: white
+  }
+}
+</style>
