@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.1",
     "@quasar/extras": "^1.0.0",
+    "howler": "^2.1.2",
     "matter-js": "^0.14.2",
     "phaser": "^3.19.0",
     "quasar": "^1.0.0",
@@ -25,8 +26,10 @@
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.12.0",
     "pug": "^2.0.4",
-    "pug-plain-loader": "^1.0.0"
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.0"
   },
   "engines": {
     "node": ">= 8.9.0",

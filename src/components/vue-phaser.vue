@@ -1,7 +1,13 @@
 <template>
   <div id="gameParent">
-    <p style="text-align: right;">Note: if the game doesn't "reload" after clicking awaywhen you click back, refresh the page.  Art is abandoned.</p>
     <div id="gameArea"></div>
+    <p>
+      <a href="https://phaser.io" target="_blank">Phaser.io</a> (the HTML game engine)
+      doesn't like WebPack, which packages 
+      <a href="https://quasar.dev" target="_blank">Quaser</a> (the navbar)
+      and 
+      <a href="https://vuejs.org/" target="_blank">Vue</a> - and is a problem I don't care to solve.  
+    <br>If the screen is black reload the page.  Art must be abandoned.</p>
   </div>
 </template>
 
@@ -39,9 +45,8 @@ export default {
   },
 
   destroyed () {
-    // This doesn't work.
     if (this.phaserInstance) {
-      console.log('bye bye!')
+      console.log('bye bye!', this.phaserInstance)
       this.phaserInstance.destroy(true)
       delete this.phaserInstance
     }
